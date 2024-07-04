@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google"
 import "./globals.css";
 
 import { cn } from "@/lib/utils"
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Fismo Store",
@@ -21,13 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-            <body
+            <body suppressHydrationWarning={true}
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
-        )} suppressHydrationWarning={true}
+        )} 
       >
-        {children}
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

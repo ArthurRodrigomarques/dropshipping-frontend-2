@@ -5,19 +5,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import UserNav from "./user-nav";
 import Menu from "./menu";
 import Cart from "./cart";
+import { ThemeToggle } from "./themeToggle";
 
 export default function Header() {
     return(
-        <div className="flex mt-1 mx-auto">
+        <div className="flex w-[100%] bg-secondary justify-between pt-4 pb-2 pl-20 pr-20">
             <Menu/>
             <Image
-                className="mx-auto"
+                className=""
+                priority
                 src={Logo}
                 width={200}
-                height={200}
-                alt="Foto do autor"
+                alt="Foto"
                 />
-                <div>
+                
+                <div className="flex space-x-5">
+                <ThemeToggle/>
                     <UserNav/>
                     <Cart/>
                 </div>

@@ -1,13 +1,11 @@
-import Image from "next/image";
-import Logo from "../../public/Fizmo.png"
-import { CgProfile } from "react-icons/cg";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 
+
 export default function UserNav() {
     return(
-        <div className="flex mt-1">
+        <div className="flex mt-1 ">
             
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -42,7 +40,9 @@ export default function UserNav() {
             </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-        
+        <div className="mt-1 ml-1">
+            Minha conta
+        </div>
         </div>
     )
 }
