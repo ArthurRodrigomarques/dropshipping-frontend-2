@@ -43,6 +43,9 @@ export default function UserNav() {
         <div className="mt-1 ml-1">
             Minha conta
         </div>
+        <div>
+            
+        </div>
         </div>
     )
 }
