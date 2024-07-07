@@ -5,7 +5,7 @@ export default function Cart() {
     return( 
         <Button className="flex">
             <MdAddShoppingCart />
-            <p>Carrinho</p>
+            <p className="hidden md:block">Carrinho</p>
         </Button>
     )
 }

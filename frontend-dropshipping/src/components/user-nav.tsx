@@ -40,7 +40,7 @@ export default function UserNav() {
             </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
-        <div className="mt-1 ml-1">
+        <div className="mt-1 ml-1 hidden md:block">
             Minha conta
         </div>
         <div>
