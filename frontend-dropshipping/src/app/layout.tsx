@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/services/AuthContext";
 
 export const metadata: Metadata = {
   title: "Fismo Store",
@@ -28,14 +29,16 @@ export default function RootLayout({
           fontSans.variable
         )} 
       >
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-          {children}
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -19,15 +19,15 @@ export function CarouselPrincipal() {
     <div className="w-full flex justify-center mt-4 overflow-hidden">
       <Carousel
         plugins={[plugin.current]}
-        className="bg-secondary"
+        className=""
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index} style={{ width: "18vw"}}>
+            <CarouselItem key={index} style={{ width: "20vw"}}>
               <div className="p-1">
-                <Card style={{ height: "50vh"}} className="w-full bg-primary">
+                <Card style={{ height: "70vh"}} className="w-full">
                   <CardContent className="flex items-center justify-center p-6">
                     <span className="text-4xl font-semibold">{index + 1}</span>
                   </CardContent>
@@ -36,8 +36,6 @@ export function CarouselPrincipal() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
       </Carousel>
     </div>
   );

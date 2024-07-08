@@ -4,7 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import UserNav from "./user-nav";
 import Menu from "./menu";
-import Cart from "./cart";
+import Cart from "./ButtonCart";
 import { ThemeToggle } from "./themeToggle";
 
 export default function Header() {
@@ -20,9 +20,15 @@ export default function Header() {
                 />
                 
                 <div className="flex space-x-5">
-                <ThemeToggle/>
-                    <UserNav/>
-                    <Cart/>
+                    <div className="mt-1">
+                        <ThemeToggle/>
+                    </div>
+                    <div>
+                        <UserNav/>
+                    </div>
+                    <div className="mt-1">
+                        <Cart/>
+                    </div>
                 </div>
         </div>
     )

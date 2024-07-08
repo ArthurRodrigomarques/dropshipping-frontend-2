@@ -22,7 +22,7 @@ export async function Products() {
         <div className='lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2 grid grid-cols-1 justify-items-center'>
           {products.map((product) => (
             <Link href="/" key={product.id}>
-              <ul className='pb-4'>
+              <ul className='pb-4 sm:w-80 h-64 mb-10'>
                 {product.images.length > 0 ? (
                   <Image
                     className="sm:w-[90%] sm:h-[20vh] h-[30vh] sm:ml-[5%] mr-[5%]"
@@ -36,7 +36,7 @@ export async function Products() {
                   <div className="placeholder-image">
 
                   </div>
-                )}
+                )} 
                 <li className='ml-5 w-[320px]'>{product.name}</li>
                 <li className='ml-5'>R$ {formatPrice(product.price)}</li>
                 <Button className='ml-[5%]'>Adicionar ao carrinho</Button>
