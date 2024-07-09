@@ -6,7 +6,7 @@ export default function InputNavigation() {
         <div className="flex justify-center items-center ">
             <div className="flex w-full max-w-xl mt-4 ">
                 <Input 
-                    className="w-[80%]"
+                    className="w-[100%]"
                     type="search" 
                     placeholder="Pesquisar Produtos"
                      />

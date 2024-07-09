@@ -12,7 +12,7 @@ export default function Header() {
         <div className="flex w-[100%] bg-secondary justify-between pt-4 pb-2 pl-20 pr-20">
             <Menu/>
             <Image
-                className="ml-[20vw]"
+                className="md:ml-[18vw] "
                 priority
                 src={Logo}
                 width={200}
