@@ -1,5 +1,3 @@
-// components/Products.tsx
-
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,14 +16,14 @@ export async function Products() {
     const products = response.data;
 
     return (
-      <div className='mt-20'>
-        <div className='lg:grid lg:grid-cols-3 sm:grid sm:grid-cols-2 grid grid-cols-1 justify-items-center'>
+      <div className='mt-20 w-[100%]'>
+        <div className='flex items-center justify-center h-screen flex-wrap gap-6'>
           {products.map((product) => (
             <Link href="/" key={product.id}>
-              <ul className='pb-4 sm:w-80 h-64 mb-10'>
+              <ul className='block sm:w-64 w-80 h-80 mb-10 border rounded-xl'>
                 {product.images.length > 0 ? (
-                  <Image
-                    className="sm:w-[90%] sm:h-[20vh] h-[30vh] sm:ml-[5%] mr-[5%]"
+                  <Image  
+                    className="sm:w-[90%] sm:h-[20vh] h-[30vh] sm:ml-[5%] mr-[5%] pt-3"
                     priority
                     src={product.images[0].imageUrl}
                     alt="Imagem do Produto"
@@ -37,7 +35,7 @@ export async function Products() {
 
                   </div>
                 )} 
-                <li className='ml-5 w-[320px]'>{product.name}</li>
+                <li className='ml-5 w-[90%] text-sm mt-1'>{product.name}</li>
                 <li className='ml-5'>R$ {formatPrice(product.price)}</li>
                 <Button className='ml-[5%]'>Adicionar ao carrinho</Button>
               </ul>
