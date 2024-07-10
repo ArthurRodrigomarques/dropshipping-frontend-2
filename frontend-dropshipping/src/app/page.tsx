@@ -8,7 +8,9 @@ export default function Home() {
       <Header/>
       <InputNavigation/>
      <CarouselPrincipal/>
+     <div>
       <Products/>
+      </div>
     </main>
   );
 }
