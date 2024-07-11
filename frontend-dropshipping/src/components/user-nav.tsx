@@ -52,7 +52,7 @@ export default function UserNav() {
                 </>
             ) : (
                 <Button className="" onClick={() => router.push("/login")}>
-                    Criar Conta
+                    Entrar
                 </Button>
             )}
         </div>
