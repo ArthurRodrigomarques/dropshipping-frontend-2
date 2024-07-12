@@ -13,9 +13,9 @@ if(token) {
   api.defaults.headers['Authorization'] = `Bearer ${token}`
 }
 
-export const login = async (email: string, password: string) => {
+export const login = async (email: string, password: string, name: string, accessName: string) => {
     try {
-      const response = await api.post("/login", {email, password})
+      const response = await api.post("/register", {email, password, name, accessName})
 
       setToken(response.data.token)
     } catch (error) {

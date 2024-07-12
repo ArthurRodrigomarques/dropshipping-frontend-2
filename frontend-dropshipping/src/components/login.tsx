@@ -6,16 +6,14 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { useContext } from "react"
 import { AuthContext } from "@/services/AuthContext"
 
 
 export function Login() {
-  const router = useRouter()
   const {register, handleSubmit} = useForm()
-  const {isAuthenticated, user, signIn} = useContext(AuthContext)
+  const { signIn } = useContext(AuthContext)
 
   async function handleSignIn(data: any) {
     try {
@@ -86,7 +84,7 @@ export function Login() {
           </div>
           <div className="mt-4 text-center text-sm">
             Não tem uma conta?{" "}
-            <Link href="#" className="underline">
+            <Link href="/createAccount" className="underline">
               Sign up
             </Link>
           </div>

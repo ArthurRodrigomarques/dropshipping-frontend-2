@@ -19,7 +19,7 @@ export async function Products() {
       <div className='mt-20 w-[100%]'>
         <div className='flex items-center justify-center h-screen flex-wrap gap-6'>
           {products.map((product) => (
-            <Link href="/" key={product.id}>
+            <Link href={`/product/${product.id}`} key={product.id}>
               <ul className='sm:w-64 w-92 sm:h-80 h-96 mb-10 border rounded-xl flex flex-col justify-between'>
                 {product.images.length > 0 ? (
                   <Image  
