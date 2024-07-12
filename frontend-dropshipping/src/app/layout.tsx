@@ -5,6 +5,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/services/AuthContext";
+import { CartProvider } from "@/services/CartContext";
 
 export const metadata: Metadata = {
   title: "Fismo Store",
@@ -30,6 +31,7 @@ export default function RootLayout({
         )} 
       >
         <AuthProvider>
+          <CartProvider>
           <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -38,6 +40,7 @@ export default function RootLayout({
             >
             {children}
           </ThemeProvider>
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
