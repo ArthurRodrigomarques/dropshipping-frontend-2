@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Logo from "../../public/Fizmo.png"
-import { CgProfile } from "react-icons/cg";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import UserNav from "./user-nav";
 import Menu from "./menu";
 import Cart from "./ButtonCart";
