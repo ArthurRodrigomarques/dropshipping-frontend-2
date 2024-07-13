@@ -16,11 +16,20 @@ type SignInData = {
     password: string;
 };
 
+type Access = {
+    name: string;
+};
+
+type UserAccess = {
+    Access: Access;
+};
+
 type User = {
     id: string;
     name: string;
     email: string;
     password: string;
+    userAccess: UserAccess[];
 };
 
 type AuthContextType = {
@@ -59,7 +68,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         api.defaults.headers['Authorization'] = `Bearer ${token}`;
         setUser(user);
-        router.push("/");
+
+        window.location.href = "/"
     }
 
     function logout() {

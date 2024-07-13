@@ -1,25 +1,23 @@
 "use client"
 
-import Image from "next/image"
-import Link from "next/link"
-
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useForm } from "react-hook-form"
-import { useContext } from "react"
-import { AuthContext } from "@/services/AuthContext"
-
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "@/services/AuthContext";
 
 export function Login() {
-  const {register, handleSubmit} = useForm()
-  const { signIn } = useContext(AuthContext)
+  const { register, handleSubmit } = useForm();
+  const { signIn } = useContext(AuthContext);
 
   async function handleSignIn(data: any) {
     try {
-      await signIn(data)
+      await signIn(data);
     } catch (error) {
-      console.log("usuário não encontrado", error)
+      console.log("usuário não encontrado", error);
     }
   }
 
@@ -35,21 +33,21 @@ export function Login() {
         />
       </div>
       <div className="flex items-center justify-center py-12">
-        <form 
-        onSubmit={handleSubmit(handleSignIn)}
-        className="mx-auto grid w-[350px] gap-6"
+        <form
+          onSubmit={handleSubmit(handleSignIn)}
+          className="mx-auto grid w-[350px] gap-6"
         >
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Login</h1>
             <p className="text-balance text-muted-foreground">
-            Digite seu e-mail abaixo para fazer login em sua conta
+              Digite seu e-mail abaixo para fazer login em sua conta
             </p>
           </div>
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
-              {...register('email')}
+                {...register('email')}
                 id="email"
                 type="email"
                 placeholder="m@example.com"
@@ -66,16 +64,14 @@ export function Login() {
                   Esqueceu sua senha?
                 </Link>
               </div>
-              <Input 
-              {...register('password')}
-              id="password" 
-              type="password" 
-              required />
+              <Input
+                {...register('password')}
+                id="password"
+                type="password"
+                required
+              />
             </div>
-            <Button 
-            type="submit" 
-            className="w-full"
-            >
+            <Button type="submit" className="w-full">
               Login
             </Button>
             {/* <Button variant="outline" className="w-full">
@@ -90,7 +86,6 @@ export function Login() {
           </div>
         </form>
       </div>
-
     </div>
-  )
+  );
 }

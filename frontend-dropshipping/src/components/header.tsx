@@ -4,11 +4,16 @@ import UserNav from "./user-nav";
 import Menu from "./menu";
 import Cart from "./ButtonCart";
 import { ThemeToggle } from "./themeToggle";
+import ButtonAdmin from "./ButtonAdmin";
 
 export default function Header() {
+    
     return(
         <div className="flex w-[100%] bg-secondary justify-between pt-4 pb-2 pl-20 pr-20">
-            <Menu/>
+            <div>
+                <Menu/>
+                <ButtonAdmin/>
+            </div>
             <Image
                 className="md:ml-[18vw] "
                 priority
