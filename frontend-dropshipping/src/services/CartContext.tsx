@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { AuthContext } from './AuthContext';
 
 interface CartItem {
   id: string;
@@ -28,19 +29,28 @@ export const useCart = () => {
   return context;
 };
 
+const getUserCartKey = (token: string | null) => `cart_${token}`;
+
 export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const { isAuthenticated, user } = useContext(AuthContext);
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
+    if (isAuthenticated && user) {
+      setToken(user.id);
+      const storedCart = localStorage.getItem(getUserCartKey(user.id));
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
+      }
     }
-  }, []); 
+  }, [isAuthenticated, user]);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    if (token) {
+      localStorage.setItem(getUserCartKey(token), JSON.stringify(cart));
+    }
+  }, [cart, token]);
 
   const addToCart = (product: CartItem) => {
     setCart((prevCart) => {
