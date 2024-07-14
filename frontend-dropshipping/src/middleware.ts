@@ -24,5 +24,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/cart/:path*', '/login']
+    matcher: ['/cart/:path*',"/admin/:path*" ,'/login']
 };
