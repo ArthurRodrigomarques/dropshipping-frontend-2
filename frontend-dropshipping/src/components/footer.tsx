@@ -14,7 +14,7 @@ const style = {
 export default function Footer() {
     return( 
         <div>
-            <div className="flex justify-evenly flex-wrap p-16 bg-primary text-white">
+            <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 p-16 bg-primary text-white">
                 <div>
                 <Image
                     className=""
@@ -33,13 +33,13 @@ export default function Footer() {
                     <Link className="hover:text-black mb-3" href="/">Trocas e devoluções</Link>
                     <Link className="hover:text-black mb-3" href="/">Politica de privacidade</Link>
                 </div>
-                <div>
+                <div className="sm:mb-5">
                     <h1 className="mb-5 font-bold">CENTRAL DE ATENDIMENTO</h1>
                     <p className="mb-2">Atendimento: seg. á sáb. 07h ás 22h</p>
                     <p className="mb-2">Contato: &#40;13&#41; 99190-8771</p>
                     <p>Email: fizmo.com</p>
                 </div>
-                <div>
+                <div className="sm:mb-5">
                     <h1 className="font-bold">REDES SOCIAS</h1>
                     <div className="flex gap-2" style={style}>
                         <Link href="/"><FaWhatsapp className="hover:text-secondary" /></Link>
