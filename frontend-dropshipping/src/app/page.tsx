@@ -5,7 +5,7 @@ import { CarouselPrincipal } from "@/components/carousel";
 import Footer from "@/components/footer";
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <Header/>
       <InputNavigation/>
      <CarouselPrincipal/>

@@ -10,10 +10,7 @@ export default function DashboardLayout({
     return (
 
       <section className="min-h-screen flex flex-col" >
-        <div className="flex w-[100%] bg-secondary justify-between pt-4 pb-2 pl-20 pr-20 fixed">
-        <div>
-          <h1>carrinho</h1>
-        </div>
+        <div className="flex w-[100%] bg-secondary justify-between pt-4 pb-2 pl-20 pr-20">
         <div>
           <ThemeToggle/>
         </div>
