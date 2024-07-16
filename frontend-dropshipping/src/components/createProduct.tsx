@@ -15,10 +15,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { AuthContext } from "@/services/AuthContext";
 import { useSearchParams } from "next/navigation";
-import dotenv from "dotenv"
-
-
-dotenv.config();
 
 export default function CreateProduct() {
   const { token } = useContext(AuthContext);
@@ -49,11 +45,11 @@ export default function CreateProduct() {
     formData.append("status", status);
     images.forEach((image) => formData.append("images", image));
 
-    const loja = process.env.LOJA;
+    const idAdm = process.env.ID_ADM;
 
 
     try {
-      const response = await axios.post(`http://localhost:3333/product/55cf9afb-8a02-48e6-ab19-83294a903eae`, formData, {
+      const response = await axios.post(`http://localhost:3333/product/${idAdm}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "Authorization": `Bearer ${token}`,

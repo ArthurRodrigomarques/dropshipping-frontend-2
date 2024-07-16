@@ -1,17 +1,14 @@
 import Image from "next/image";
 import Logo from "../../public/Fizmo.png"
 import UserNav from "./user-nav";
-// import Menu from "./menu";
 import Cart from "./ButtonCart";
 import { ThemeToggle } from "./themeToggle";
 import ButtonAdmin from "./ButtonAdmin";
 
 import Link from "next/link"
 import {
-  CircleUser,
   Menu,
   Package2,
-  Search,
 } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "./ui/button";

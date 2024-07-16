@@ -10,9 +10,11 @@ interface Product {
   images: { imageUrl: string }[];
 }
 
+const api = process.env.ROUTE_BACKEND
+
 export async function Products() {
   try {
-    const response = await axios.get<Product[]>("http://localhost:3333/products");
+    const response = await axios.get<Product[]>(`${api}/products`);
     const products = response.data;
 
     return (
@@ -41,7 +43,7 @@ export async function Products() {
                 )}
                 <div>
                   <li className='mt-4 text-sm'>{product.name}</li>
-                  <li className='mt-1 text-lg font-medium text-gray-900'>R$ {formatPrice(product.price)}</li>
+                  <li className='mt-1 text-lg font-medium'>R$ {formatPrice(product.price)}</li>
                 </div>
               </ul>
             </Link>

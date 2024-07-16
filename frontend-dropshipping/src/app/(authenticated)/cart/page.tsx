@@ -6,8 +6,9 @@ import { useRouter } from 'next/navigation';
 import { api } from '@/services/api';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { HoverCard, HoverCardTrigger } from '@/components/ui/hover-card';
 import Link from 'next/link';
+import Image from 'next/image';
+
 
 const Cart = () => {
   const { cart, removeFromCart, clearCart, total } = useCart();
@@ -36,7 +37,6 @@ const Cart = () => {
       <div className='container mx-auto mt-20 flex w-[100%] md:flex-nowrap flex-wrap'>
       
     <Table className='md:w-[80%]'>
-      <TableCaption>cebola</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead >Produto</TableHead>
@@ -47,7 +47,27 @@ const Cart = () => {
       <TableBody>
         {cart.map((item) => (
           <TableRow key={item.id}>
-            <TableCell className="font-medium">{item.name}</TableCell>
+
+            <TableCell className="font-medium">
+              <div className='flex'>
+            {item.images.length > 0 ? (
+                  <Image
+                    alt="Product image"
+                    className="aspect-square rounded-md object-cover"
+                    height="64"
+                    src={item.images[0].imageUrl}
+                    width="64"
+                  />
+                ) : (
+                  <div className="placeholder-image">
+                    {/* Placeholder content */}
+                  </div>
+                )}
+                <p className='mt-4 ml-2'>{item.name}</p>
+                </div>
+            </TableCell>
+          
+
             <div>
             <TableCell>{item.quantity}</TableCell>
               <p className='text-sm text-slate-500 hover:cursor-pointer underline' 

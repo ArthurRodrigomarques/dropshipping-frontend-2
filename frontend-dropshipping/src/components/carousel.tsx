@@ -18,7 +18,7 @@ export function CarouselPrincipal() {
   return (
     <div className="w-full h-full flex justify-center items-center overflow-hidden">
       <Carousel
-        plugins={[plugin.current]}
+        plugins={[plugin.current]}  
         className="w-full h-full"
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}

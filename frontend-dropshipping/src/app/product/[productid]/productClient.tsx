@@ -31,7 +31,7 @@ const ProductClient = ({ product }: { product: Product }) => {
   };
 
   return (
-    <div className="container mx-auto lg:p-20 pt-20 bg-slate-100">
+    <div className="container mx-auto lg:p-20 pt-20">
       <div className="flex flex-col sm:flex-row ">
         <div>
         {product.images.length > 0 && (
