@@ -56,10 +56,9 @@ export default function CreateProduct() {
     if (files) {
       const filesArray = Array.from(files);
       if (filesArray.length > 0) {
-        // Atualiza apenas o array correspondente ao índice
         setImages((prevImages) => {
           const newImages = [...prevImages];
-          newImages[index] = filesArray[0]; // Apenas a primeira imagem é adicionada por input
+          newImages[index] = filesArray[0]; 
           return newImages;
         });
       }
@@ -215,7 +214,6 @@ export default function CreateProduct() {
             <div>
   <Label htmlFor="images">Escolha as Imagens</Label>
   <div className="grid grid-cols-1 gap-4">
-    {/* Renderiza até 5 inputs de arquivo */}
     {[...Array(5)].map((_, index) => (
       <Input
         key={index}
