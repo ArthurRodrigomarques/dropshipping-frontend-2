@@ -21,41 +21,41 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import CreateProduct from "@/components/createProduct";
 
 export default function PostProduct() {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [amount, setAmount] = useState("");
-  const [status, setStatus] = useState("draft");
-  const [images, setImages] = useState<File[]>([]);
+  // const [name, setName] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [amount, setAmount] = useState("");
+  // const [status, setStatus] = useState("draft");
+  // const [images, setImages] = useState<File[]>([]);
   
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImages(Array.from(e.target.files));
-    }
-  };
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     setImages(Array.from(e.target.files));
+  //   }
+  // };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
     
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("amount", amount);
-    formData.append("status", status);
-    images.forEach((image) => formData.append("images", image));
+  //   const formData = new FormData();
+  //   formData.append("name", name);
+  //   formData.append("description", description);
+  //   formData.append("price", price);
+  //   formData.append("amount", amount);
+  //   formData.append("status", status);
+  //   images.forEach((image) => formData.append("images", image));
 
-    try {
-      const response = await axios.post("/api/products", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log("Product created:", response.data);
-    } catch (error) {
-      console.error("Error creating product:", error);
-    }
-  };
+  //   try {
+  //     const response = await axios.post("/api/products", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
+  //     console.log("Product created:", response.data);
+  //   } catch (error) {
+  //     console.error("Error creating product:", error);
+  //   }
+  // };
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">

@@ -7,18 +7,34 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { AuthContext } from "@/services/AuthContext";
 import { useSearchParams } from "next/navigation";
-import dotenv from "dotenv"
-
-
-dotenv.config();
 
 export default function CreateProduct() {
   const { token } = useContext(AuthContext);
@@ -32,9 +48,20 @@ export default function CreateProduct() {
   const [status, setStatus] = useState("draft");
   const [images, setImages] = useState<File[]>([]);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImages(Array.from(e.target.files));
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const files = e.target.files;
+    if (files) {
+      const filesArray = Array.from(files);
+      if (filesArray.length > 0) {
+        setImages((prevImages) => {
+          const newImages = [...prevImages];
+          newImages[index] = filesArray[0]; 
+          return newImages;
+        });
+      }
     }
   };
 
@@ -49,16 +76,19 @@ export default function CreateProduct() {
     formData.append("status", status);
     images.forEach((image) => formData.append("images", image));
 
-    const loja = process.env.LOJA;
-
+    const idAdm = process.env.NEXT_PUBLIC_ID_ADM;
 
     try {
-      const response = await axios.post(`http://localhost:3333/product/55cf9afb-8a02-48e6-ab19-83294a903eae`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`,
-        },
-      });
+      const response = await axios.post(
+        `http://localhost:3333/product/${idAdm}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log("Product created:", response.data);
     } catch (error) {
       console.error("Error creating product:", error);
@@ -89,7 +119,10 @@ export default function CreateProduct() {
           </Button>
         </div>
       </div>
-      <form className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8" onSubmit={handleSubmit}>
+      <form
+        className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8"
+        onSubmit={handleSubmit}
+      >
         <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
           <Card x-chunk="dashboard-07-chunk-0">
             <CardHeader>
@@ -127,9 +160,7 @@ export default function CreateProduct() {
           <Card x-chunk="dashboard-07-chunk-1">
             <CardHeader>
               <CardTitle>Estoque</CardTitle>
-              <CardDescription>
-                Quantidade e preço do produto
-              </CardDescription>
+              <CardDescription>Quantidade e preço do produto</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
@@ -142,9 +173,7 @@ export default function CreateProduct() {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="font-semibold">
-                      GGPC-001
-                    </TableCell>
+                    <TableCell className="font-semibold">GGPC-001</TableCell>
                     <TableCell>
                       <Label htmlFor="amount" className="sr-only">
                         Quantidade
@@ -178,22 +207,31 @@ export default function CreateProduct() {
         <Card className="lg:col-span-1 lg:grid lg:grid-cols-1 lg:items-start lg:gap-4">
           <CardHeader>
             <CardTitle>Imagens</CardTitle>
-            <CardDescription>
-              Adicione imagens do produto abaixo
-            </CardDescription>
+            <CardDescription>Adicione imagens do produto abaixo</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-              <div>
-                <Label htmlFor="images">Escolha as Imagens</Label>
-                <Input
-                  id="images"
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-              </div>
+            <div>
+  <Label htmlFor="images">Escolha as Imagens</Label>
+  <div className="grid grid-cols-1 gap-4">
+    {[...Array(5)].map((_, index) => (
+      <Input
+        key={index}
+        id={`image_${index}`}
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleFileChange(e, index)}
+      />
+    ))}
+  </div>
+  {images.length > 0 && (
+    <ul>
+      {images.map((image, index) => (
+        <li key={index}>{image.name}</li>
+      ))}
+    </ul>
+  )}
+</div>
               <div className="grid gap-2">
                 {images.map((image, index) => (
                   <div key={index} className="flex items-center gap-4">
@@ -222,9 +260,7 @@ export default function CreateProduct() {
         <Card x-chunk="dashboard-07-chunk-3">
           <CardHeader>
             <CardTitle>Status</CardTitle>
-            <CardDescription>
-              Selecione o status do produto
-            </CardDescription>
+            <CardDescription>Selecione o status do produto</CardDescription>
           </CardHeader>
           <CardContent>
             <Select onValueChange={(value) => setStatus(value)}>

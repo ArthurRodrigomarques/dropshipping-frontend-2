@@ -81,7 +81,7 @@ export function Login() {
           <div className="mt-4 text-center text-sm">
             Não tem uma conta?{" "}
             <Link href="/createAccount" className="underline">
-              Sign up
+              Criar agora
             </Link>
           </div>
         </form>

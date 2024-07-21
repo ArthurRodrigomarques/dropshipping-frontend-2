@@ -48,7 +48,7 @@ export function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm mt-40">
       <CardHeader>
-        <CardTitle className="text-xl">Sign Up</CardTitle>
+        <CardTitle className="text-xl">Registrar</CardTitle>
         <CardDescription>
           Coloque suas informações para criar sua conta
         </CardDescription>
@@ -112,7 +112,7 @@ export function LoginForm() {
         <div className="mt-4 text-center text-sm">
           Você já possui uma conta?{" "}
           <Link href="/login" className="underline">
-            Sign in
+            Faça login
           </Link>
         </div>
       </CardContent>
