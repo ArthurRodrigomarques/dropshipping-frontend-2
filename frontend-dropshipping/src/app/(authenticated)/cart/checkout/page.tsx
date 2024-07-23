@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCart } from '../../../../services/CartContext';
 import { useRouter } from 'next/navigation';
 import { api } from '@/services/api';
@@ -11,22 +11,31 @@ const Checkout = () => {
   const { cart, total } = useCart();
   const router = useRouter();
 
-  const [customerInfo, setCustomerInfo] = useState({
-    name: '',
-    email: '',
-    address: '',
-  });
+  const [userSellerId, setUserSellerId] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCustomerInfo(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const seller = process.env.NEXT_PUBLIC_SELLER_ID;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    const fetchUserSellerId = async () => {
+      try {
+        // Verifique o endpoint e a resposta
+        const response = await api.get(`/get-unique-user-id/${seller}`);
+        // Verifique se response.data.id existe e é válido
+        if (response.data?.id) {
+          setUserSellerId(response.data.id);
+        } else {
+          console.error('ID do vendedor não encontrado na resposta da API');
+        }
+      } catch (error) {
+        console.error('Erro ao obter ID do vendedor:', error);
+      }
+    };
+
+    fetchUserSellerId();
+  }, [seller]);
+
+  const handleCheckout = async (event: React.FormEvent) => {
+    event.preventDefault(); // Previne o comportamento padrão do formulário
 
     const stripe = await stripePromise;
 
@@ -35,10 +44,15 @@ const Checkout = () => {
       return;
     }
 
+    if (!userSellerId) {
+      console.error('ID do vendedor não disponível');
+      return;
+    }
+
     try {
       const response = await api.post('/create-checkout-session', {
         products: cart.map(item => ({ id: item.id, quantity: item.quantity })),
-        customerInfo,
+        userSellerId: userSellerId,
       });
 
       const { sessionId } = response.data;
@@ -49,7 +63,7 @@ const Checkout = () => {
       }
 
       const { error } = await stripe.redirectToCheckout({
-        sessionId,
+        sessionId: sessionId,
       });
 
       if (error) {
@@ -63,43 +77,7 @@ const Checkout = () => {
   return (
     <div className="container mx-auto mt-20">
       <h1 className="text-center">Dados do Cliente</h1>
-      <form onSubmit={handleSubmit} className="mt-10">
-        <div>
-          <label>
-            Nome:
-            <input
-              type="text"
-              name="name"
-              value={customerInfo.name}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={customerInfo.email}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Endereço:
-            <input
-              type="text"
-              name="address"
-              value={customerInfo.address}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
+      <form onSubmit={handleCheckout} className="mt-40">
         <Button type="submit">Continuar para Pagamento</Button>
       </form>
     </div>
