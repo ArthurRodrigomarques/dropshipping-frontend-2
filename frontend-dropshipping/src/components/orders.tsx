@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
 import { Badge } from "./ui/badge";
 
@@ -46,7 +47,10 @@ export async function Orders(params: any) {
         {orders.map((order) => (
           <TableRow key={order.id} className="bg-accent">
             <TableCell>
-              <div className="font-medium">{order.email.name}</div>
+              
+              <Link href={`/admin/session/${order.id}`} key={order.id}>
+                {order.email.name}
+              </Link>
               <div className="hidden text-sm text-muted-foreground md:inline">
                 {order.email.email}
               </div>
