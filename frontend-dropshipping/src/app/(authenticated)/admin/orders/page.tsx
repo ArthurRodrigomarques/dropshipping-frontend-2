@@ -1,6 +1,4 @@
 import axios from 'axios';
-import Image from 'next/image';
-import Link from 'next/link';
 
 interface Address {
   id: string;
@@ -15,7 +13,7 @@ interface Address {
 }
 
 interface Metadata {
-  address: string; 
+  address: Address; 
   buyerId: string;
   products: { id: string; quantity: number }[];
   userSellerId: string;
@@ -45,7 +43,7 @@ export async function OrderDetails() {
           <div className=''> 
             {orders.map((order) => {
               // Convert address string from JSON to object
-              const address = order.metadata.address ? JSON.parse(order.metadata.address) : null;
+              const address = order.metadata.address ? JSON.parse(order.metadata.address.userId) : null;
 
               return (
                 <div className='m-40' key={order.id}>

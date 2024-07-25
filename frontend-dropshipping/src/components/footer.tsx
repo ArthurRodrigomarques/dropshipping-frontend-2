@@ -37,7 +37,7 @@ export default function Footer() {
                     <h1 className="mb-5 font-bold">CENTRAL DE ATENDIMENTO</h1>
                     <p className="mb-2">Atendimento: seg. á sáb. 07h ás 22h</p>
                     <p className="mb-2">Contato: &#40;13&#41; 99190-8771</p>
-                    <p>Email: fizmo.com</p>
+                    <p>Email: mizustoreoficial@gmail.com</p>
                 </div>
                 <div className="sm:mb-5">
                     <h1 className="font-bold">REDES SOCIAS</h1>
