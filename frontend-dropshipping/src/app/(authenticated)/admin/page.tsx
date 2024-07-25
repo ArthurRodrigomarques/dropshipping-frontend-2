@@ -47,7 +47,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { Orders } from "@/components/orders"
+import  Orders  from "@/components/orders"
 
 
 export default function Admin() {
@@ -133,12 +133,12 @@ export default function Admin() {
 
               <Card x-chunk="dashboard-05-chunk-2">
                 <CardHeader className="pb-2">
-                  <CardDescription>This Month</CardDescription>
+                  <CardDescription>Esse mês</CardDescription>
                   <CardTitle className="text-4xl">$5,329</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-xs text-muted-foreground">
-                    +10% from last month
+                    +10% que o mês passado
                   </div>
                 </CardContent>
                 <CardFooter>
@@ -150,7 +150,6 @@ export default function Admin() {
               <div className="flex items-center">
                 <TabsList>
                   <TabsTrigger value="week">TODOS</TabsTrigger>
-
                 </TabsList>
                 <div className="ml-auto flex items-center gap-2">
                   <DropdownMenu>
@@ -161,11 +160,11 @@ export default function Admin() {
                         className="h-7 gap-1 text-sm"
                       >
                         <ListFilter className="h-3.5 w-3.5" />
-                        <span className="sr-only sm:not-sr-only">Filter</span>
+                        <span className="sr-only sm:not-sr-only">Filtro</span>
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+                      <DropdownMenuLabel>Filtro por</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuCheckboxItem checked>
                         Fulfilled
@@ -191,9 +190,9 @@ export default function Admin() {
               <TabsContent value="week">
                 <Card x-chunk="dashboard-05-chunk-3">
                   <CardHeader className="px-7">
-                    <CardTitle>Orders</CardTitle>
+                    <CardTitle>Pedidos</CardTitle>
                     <CardDescription>
-                      Recent orders from your store.
+                     Pedidos Recentes
                     </CardDescription>
                   </CardHeader>
 

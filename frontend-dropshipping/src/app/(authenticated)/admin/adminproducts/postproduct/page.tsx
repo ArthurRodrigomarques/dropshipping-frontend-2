@@ -1,62 +1,19 @@
-"use client"
+"use client";
 
-import { useState } from "react";
-import axios from "axios";
+import { Suspense } from "react";
 import Link from "next/link";
-import {
-  PanelLeft,
-  Search,
-} from "lucide-react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { PanelLeft, Search } from "lucide-react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import CreateProduct from "@/components/createProduct";
 
+const FallbackComponent = () => (
+  <div>Loading...</div>
+);
+
 export default function PostProduct() {
-  // const [name, setName] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [amount, setAmount] = useState("");
-  // const [status, setStatus] = useState("draft");
-  // const [images, setImages] = useState<File[]>([]);
-  
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files) {
-  //     setImages(Array.from(e.target.files));
-  //   }
-  // };
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-    
-  //   const formData = new FormData();
-  //   formData.append("name", name);
-  //   formData.append("description", description);
-  //   formData.append("price", price);
-  //   formData.append("amount", amount);
-  //   formData.append("status", status);
-  //   images.forEach((image) => formData.append("images", image));
-
-  //   try {
-  //     const response = await axios.post("/api/products", formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     });
-  //     console.log("Product created:", response.data);
-  //   } catch (error) {
-  //     console.error("Error creating product:", error);
-  //   }
-  // };
-
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
@@ -114,7 +71,9 @@ export default function PostProduct() {
           </div>
         </header>
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-        <CreateProduct/>
+          <Suspense fallback={<FallbackComponent />}>
+            <CreateProduct />
+          </Suspense>
         </main>
       </div>
     </div>

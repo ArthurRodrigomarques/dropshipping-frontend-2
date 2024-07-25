@@ -39,6 +39,9 @@ export default function UserNav() {
                                 <DropdownMenuItem>
                                     Configurações
                                 </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    Minhas compras
+                                </DropdownMenuItem>
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={logout}>
