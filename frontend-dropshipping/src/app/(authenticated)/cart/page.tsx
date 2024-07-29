@@ -17,14 +17,14 @@ const Cart = () => {
   };
 
   if (cart.length === 0) {
-    return <div className='container mx-auto mt-20'>Seu carrinho está vazio.</div>;
+    return <div className='flex justify-center mt-40 text-2xl'>Seu carrinho está vazio.</div>;
   }
 
   return (
     <div className='mt-20'>
-      <h1 className='text-center'>Carrinho</h1>
+      <h1 className='text-center text-2xl'>Carrinho</h1>
       <div className='container mx-auto mt-20 flex w-[100%] md:flex-nowrap flex-wrap'>
-        <Table className='md:w-[80%]'>
+        <Table className='md:w-[90%]'>
           <TableHeader>
             <TableRow>
               <TableHead>Produto</TableHead>
@@ -39,23 +39,25 @@ const Cart = () => {
                   <div className='flex'>
                     {item.images.length > 0 ? (
                       <Image
-                        alt="Product image"
-                        className="aspect-square rounded-md object-cover"
-                        height={64}
-                        src={item.images[0].imageUrl}
-                        width={64}
-                      />
+                      alt="Product image"
+                      className="aspect-square rounded-md object-cover "
+                      height={64}
+                      src={item.images[0].imageUrl}
+                      width={64}
+                      style={{ width: 'auto', height: 'auto' }} 
+                      priority
+                    />
                     ) : (
                       <div className="placeholder-image">
                         {/* Placeholder content */}
                       </div>
                     )}
-                    <p className='mt-4 ml-2'>{item.name}</p>
+                    <p className='pt-5 ml-2 md:text-base'>{item.name}</p>
                   </div>
                 </TableCell>
-                <TableCell>{item.quantity}</TableCell>
-                <TableCell>{item.price.toFixed(2)}</TableCell>
-                <TableCell>
+                <TableCell className='text-base pl-10'>{item.quantity}</TableCell>
+                <TableCell className='text-base'>{item.price.toFixed(2)}</TableCell>
+                <TableCell className='text-base'>
                   <p className='text-sm text-slate-500 hover:cursor-pointer underline'
                      onClick={() => removeFromCart(item.id)}>excluir</p>
                 </TableCell>
@@ -69,7 +71,7 @@ const Cart = () => {
             </TableRow>
           </TableFooter>
         </Table>
-        <Card className='md:w-[40%] p-10'>
+        <Card className='md:w-[40%] w-[100%] p-10 md:mt-0 mt-10'>
           <h2 className='text-2xl font-bold mb-5'>Total: R$ {total.toFixed(2)}</h2>
           <div className='flex flex-col gap-4'>
             <Button onClick={handleCheckout}>Finalizar Compra</Button>
