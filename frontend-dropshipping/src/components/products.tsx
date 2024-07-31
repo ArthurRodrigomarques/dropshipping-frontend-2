@@ -1,7 +1,6 @@
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from './ui/button';
 
 interface Product {
   id: string;
@@ -10,7 +9,7 @@ interface Product {
   images: { imageUrl: string }[];
 }
 
-const api = process.env.ROUTE_BACKEND
+const api = process.env.ROUTE_BACKEND;
 
 export async function Products() {
   try {
@@ -19,36 +18,36 @@ export async function Products() {
 
     return (
       <div>
-        <div className='mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 '>
-        <h2 className="sr-only">Products</h2>
-        <div className='grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 '> 
-          {products.map((product) => (
-            <Link href={`/product/${product.id}`} key={product.id}>
-              <ul className='group'>
-                {product.images.length > 0 ? (
-                  <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7'>
-                  <Image  
-                    className="h-full w-full object-cover object-center group-hover:opacity-75"
-                    priority
-                    src={product.images[0].imageUrl}
-                    alt="Imagem do Produto"
-                    width={400}
-                    height={400}
-                  />
+        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <h2 className="sr-only">Products</h2>
+          <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            {products.map((product) => (
+              <Link href={`/product/${product.id}`} key={product.id}>
+                <ul className="group flex flex-row sm:flex-col items-center sm:items-start p-4 rounded-lg w-full border">
+                  {product.images.length > 0 ? (
+                    <div className="w-1/3 sm:w-full aspect-w-1 aspect-h-1 overflow-hidden rounded-lg flex-shrink-0">
+                      <Image
+                        className="object-cover object-center group-hover:opacity-75 w-full h-full"
+                        priority
+                        src={product.images[0].imageUrl}
+                        alt="Imagem do Produto"
+                        width={200}
+                        height={200}
+                      />
+                    </div>
+                  ) : (
+                    <div className="placeholder-image w-1/3 sm:w-full">
+                      {/* Placeholder content */}
+                    </div>
+                  )}
+                  <div className="ml-4 sm:ml-0 sm:mt-4 w-full text-left sm:text-center">
+                    <li className="text-sm">{product.name}</li>
+                    <li className="mt-1 text-lg font-medium">R$ {formatPrice(product.price)}</li>
                   </div>
-                ) : (
-                  <div className="placeholder-image">
-                    {/* Placeholder content */}
-                  </div>
-                )}
-                <div>
-                  <li className='mt-4 text-sm'>{product.name}</li>
-                  <li className='mt-1 text-lg font-medium'>R$ {formatPrice(product.price)}</li>
-                </div>
-              </ul>
-            </Link>
-          ))}
-        </div>
+                </ul>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     );

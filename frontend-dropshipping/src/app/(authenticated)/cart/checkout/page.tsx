@@ -35,7 +35,7 @@ const Checkout = () => {
   }, [seller]);
 
   const handleCheckout = async (event: React.FormEvent) => {
-    event.preventDefault(); // Previne o comportamento padrão do formulário
+    event.preventDefault();
 
     const stripe = await stripePromise;
 
