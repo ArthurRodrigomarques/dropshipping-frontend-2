@@ -11,14 +11,17 @@ interface Product {
   name: string;
   price: number;
   description: string;
-  images: { imageUrl: string }[];
+  images: { imageUrl: string, isMain: boolean }[];
 }
 
 const ProductClient = ({ product }: { product: Product }) => {
   const { addToCart } = useCart();
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState(product.images[0].imageUrl);
+
+  // Ordenar as imagens, colocando a principal (isMain) primeiro
+  const sortedImages = product.images.sort((a, b) => (b.isMain ? 1 : -1));
+  const [selectedImage, setSelectedImage] = useState(sortedImages[0].imageUrl);
 
   const handleAddToCart = () => {
     addToCart({ ...product, quantity });
@@ -32,36 +35,36 @@ const ProductClient = ({ product }: { product: Product }) => {
 
   return (
     <div className="container mx-auto lg:p-20 pt-20">
-      <div className="flex flex-col sm:flex-row ">
+      <div className="flex flex-col sm:flex-row">
         <div>
-        {product.images.length > 0 && (
-          <Image
-            className="rounded"
-            src={selectedImage}
-            alt="Imagem do Produto"
-            width={500}
-            height={500}
-          />
-        )}
-        <div className="flex justify-normal mt-6 space-x-4">
-        {product.images.map((image, index) => (
-          <div key={index} onClick={() => setSelectedImage(image.imageUrl)}>
+          {sortedImages.length > 0 && (
             <Image
-              className={`cursor-pointer ${selectedImage === image.imageUrl ? 'border-2 border-blue-500' : ''}`}
-              src={image.imageUrl}
-              alt={`Imagem ${index + 1}`}
-              width={100}
-              height={100}
+              className="rounded"
+              src={selectedImage}
+              alt="Imagem do Produto"
+              width={500}
+              height={500}
             />
+          )}
+          <div className="flex justify-normal mt-6 space-x-4">
+            {sortedImages.map((image, index) => (
+              <div key={index} onClick={() => setSelectedImage(image.imageUrl)}>
+                <Image
+                  className={`cursor-pointer ${selectedImage === image.imageUrl ? 'border-2 border-blue-500' : ''}`}
+                  src={image.imageUrl}
+                  alt={`Imagem ${index + 1}`}
+                  width={100}
+                  height={100}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      </div>
+        </div>
         <div className="sm:ml-10 mt-5 sm:mt-0">
           <h1 className="sm:text-2xl font-bold">{product.name}</h1>
           <p className="text-xl mt-2">R$ {formatPrice(product.price)}</p>
           <div className="mt-4">
-          <input
+            <input
               type="number"
               value={quantity}
               onChange={handleQuantityChange}
@@ -72,9 +75,7 @@ const ProductClient = ({ product }: { product: Product }) => {
           <Button className="mt-6" onClick={handleAddToCart}>Adicionar ao carrinho</Button>
         </div>
       </div>
-
-
-      <div className="mt-4">
+      <div className="mt-4 whitespace-pre-wrap">
         <p>{product.description}</p>
       </div>
     </div>
