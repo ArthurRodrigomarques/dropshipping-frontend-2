@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/services/AuthContext";
 import { useContext } from "react";
+import Link from "next/link";
 
 export default function UserNav() {
     const { user, logout } = useContext(AuthContext);
@@ -33,12 +34,16 @@ export default function UserNav() {
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
-                                <DropdownMenuItem>
-                                    Perfil
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    Configurações
-                                </DropdownMenuItem>
+                                <Link href="/settings/account">
+                                    <DropdownMenuItem className="cursor-pointer">
+                                        Perfil  
+                                    </DropdownMenuItem>
+                                </Link>
+                                <Link href="/settings/setting">
+                                    <DropdownMenuItem className="cursor-pointer">
+                                        Configurações  
+                                    </DropdownMenuItem>
+                                </Link>
                                 <DropdownMenuItem>
                                     Minhas compras
                                 </DropdownMenuItem>
