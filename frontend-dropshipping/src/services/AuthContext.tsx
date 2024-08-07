@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { parseCookies, setCookie } from 'nookies';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { api } from '@/services/api';
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -92,3 +92,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     );
 }
 
+export const useAuth = (): AuthContextType => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
