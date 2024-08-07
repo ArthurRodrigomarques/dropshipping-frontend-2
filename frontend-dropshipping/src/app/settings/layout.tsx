@@ -32,7 +32,7 @@ export default function DashboardLayout({
             className="grid gap-4 text-sm" x-chunk="dashboard-04-chunk-0"
           >
             <Link className="hover:text-primary" href="/settings/account">Minha Conta</Link>
-            <Link className="hover:text-primary" href="/settings/adress">Endereço</Link>
+            <Link className="hover:text-primary" href="/settings/address">Endereço</Link>
             <Link className="hover:text-primary" href="/settings/setting">Configurações</Link>
             <Link className="hover:text-primary" href="#">Minhas Compras</Link>
           </nav>

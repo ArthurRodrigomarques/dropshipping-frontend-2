@@ -16,6 +16,9 @@ interface Address {
   state: string;
   country: string;
   zip: string;
+  houseNumber: string;
+  complement: string;
+  neighborhood: string;
   userId: string;
   created_at: string;
   updated_at: string;
@@ -177,11 +180,15 @@ const SessionClient = ({ session }: { session: Session }) => {
             <div className="font-semibold">Informações do Comprador</div>
             <address className="grid gap-0.5 not-italic text-muted-foreground">
               <span>{session.email.name}</span>
+              <span>CEP:    {parsedAddress.zip}</span>
               <span>Rua:    {parsedAddress.street}</span>
+              <span>Numero: {parsedAddress.houseNumber}</span>
+              <span>Complemento: {parsedAddress.complement}</span>
+              <span>Bairo: {parsedAddress.neighborhood}</span>
               <span>Cidade: {parsedAddress.city}</span>
               <span>Estado: {parsedAddress.state}</span>
-              <span>CEP:    {parsedAddress.zip}</span>
               <span>Pais:   {parsedAddress.country}</span>
+              
             </address>
           </div>
           <div className="grid auto-rows-max gap-3">

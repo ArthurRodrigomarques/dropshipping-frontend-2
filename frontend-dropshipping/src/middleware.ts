@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
     const token = request.cookies.get('auth_token')?.value;
     const url = request.nextUrl.clone();
-    const loginURL = new URL('/login', request.url);
-    const unauthorizedURL = new URL('/unauthorized', request.url);
+    const loginURL = new URL('/login', request.nextUrl.origin);
+    const unauthorizedURL = new URL('/unauthorized', request.nextUrl.origin);
 
     const adminPaths = ['/admin', '/admin/adminproducts', "/admin/orders", '/admin/adminproducts/postproduct', "/admin/session/:id"];
 
@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
     } else {
         // Se estiver autenticado
         if (request.nextUrl.pathname === "/login") {
-            return NextResponse.redirect("/");
+            return NextResponse.redirect(new URL('/', request.nextUrl.origin));
         }
 
         // Verificar se a rota admin é acessível
@@ -35,12 +35,11 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/cart/:path*', '/admin/:path*','/admin/session/:path*', '/login'],
+    matcher: ['/cart/:path*', '/admin/:path*', '/admin/session/:path*', '/login'],
 };
 
 function getUserRolesFromToken(token: string): string[] {
     try {
-
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         return decodedToken.roles || [];
     } catch (error) {

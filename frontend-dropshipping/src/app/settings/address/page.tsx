@@ -22,6 +22,7 @@ type Address = {
   houseNumber: string;
   complement: string;
   neighborhood: string;
+  country: string;
 };
 
 export default function Address() {
@@ -80,8 +81,18 @@ export default function Address() {
           </CardHeader>
           <CardContent>
             <form>
+            <div className="flex mb-5">
+                <p className="mt-[6px] mr-8">CEP:</p>
+                <Input
+                  name="zip"
+                  placeholder="CEP"
+                  value={address?.zip || ""}
+                  onChange={handleInputChange}
+                  readOnly={!isEditing}
+                />
+              </div>
               <div className="flex mb-5">
-                <p className="mt-[6px]">Rua:</p>
+                <p className="mt-[6px] mr-8">Rua:</p>
                 <Input
                   name="street"
                   placeholder="Rua"
@@ -91,7 +102,7 @@ export default function Address() {
                 />
               </div>
               <div className="flex mb-5">
-                <p className="mt-[6px] mr-7">Número:</p>
+                <p className="mt-[6px] mr-1">Número:</p>
                 <Input
                   name="houseNumber"
                   placeholder="Número"
@@ -111,7 +122,7 @@ export default function Address() {
                 />
               </div>
               <div className="flex mb-5">
-                <p className="mt-[6px] mr-1">Bairro:</p>
+                <p className="mt-[6px] mr-5">Bairro:</p>
                 <Input
                   name="neighborhood"
                   placeholder="Bairro"
@@ -121,7 +132,7 @@ export default function Address() {
                 />
               </div>
               <div className="flex mb-5">
-                <p className="mt-[6px] mr-1">Cidade:</p>
+                <p className="mt-[6px] mr-3">Cidade:</p>
                 <Input
                   name="city"
                   placeholder="Cidade"
@@ -131,7 +142,7 @@ export default function Address() {
                 />
               </div>
               <div className="flex mb-5">
-                <p className="mt-[6px] mr-1">Estado:</p>
+                <p className="mt-[6px] mr-3">Estado:</p>
                 <Input
                   name="state"
                   placeholder="Estado"
@@ -141,11 +152,11 @@ export default function Address() {
                 />
               </div>
               <div className="flex mb-5">
-                <p className="mt-[6px] mr-7">CEP:</p>
+                <p className="mt-[6px] mr-8">Pais:</p>
                 <Input
-                  name="zip"
-                  placeholder="CEP"
-                  value={address?.zip || ""}
+                  name="country"
+                  placeholder="Pais"
+                  value={address?.country || ""}
                   onChange={handleInputChange}
                   readOnly={!isEditing}
                 />
