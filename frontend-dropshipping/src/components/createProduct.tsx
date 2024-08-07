@@ -18,13 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Table,
   TableBody,
   TableCell,
@@ -34,31 +27,28 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { AuthContext } from "@/services/AuthContext";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function CreateProduct() {
   const { token } = useContext(AuthContext);
   const searchParams = useSearchParams();
   const storeId = searchParams.get("storeId");
+  const router = useRouter(); 
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
-  const [status, setStatus] = useState("draft");
   const [images, setImages] = useState<File[]>([]);
 
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const files = e.target.files;
     if (files) {
       const filesArray = Array.from(files);
       if (filesArray.length > 0) {
         setImages((prevImages) => {
           const newImages = [...prevImages];
-          newImages[index] = filesArray[0]; 
+          newImages[index] = filesArray[0];
           return newImages;
         });
       }
@@ -73,7 +63,6 @@ export default function CreateProduct() {
     formData.append("description", description);
     formData.append("price", price);
     formData.append("amount", amount);
-    formData.append("status", status);
     images.forEach((image) => formData.append("images", image));
 
     const idAdm = process.env.NEXT_PUBLIC_ID_ADM;
@@ -90,6 +79,7 @@ export default function CreateProduct() {
         }
       );
       console.log("Product created:", response.data);
+      router.push('/'); // Adicionar esta linha para redirecionar para a página inicial
     } catch (error) {
       console.error("Error creating product:", error);
     }
@@ -152,6 +142,7 @@ export default function CreateProduct() {
                     className="min-h-32"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    style={{ whiteSpace: "pre-wrap" }} // Adicione esta linha
                   />
                 </div>
               </div>
@@ -211,27 +202,27 @@ export default function CreateProduct() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
-            <div>
-  <Label htmlFor="images">Escolha as Imagens</Label>
-  <div className="grid grid-cols-1 gap-4">
-    {[...Array(5)].map((_, index) => (
-      <Input
-        key={index}
-        id={`image_${index}`}
-        type="file"
-        accept="image/*"
-        onChange={(e) => handleFileChange(e, index)}
-      />
-    ))}
-  </div>
-  {images.length > 0 && (
-    <ul>
-      {images.map((image, index) => (
-        <li key={index}>{image.name}</li>
-      ))}
-    </ul>
-  )}
-</div>
+              <div>
+                <Label htmlFor="images">Escolha as Imagens</Label>
+                <div className="grid grid-cols-1 gap-4">
+                  {[...Array(5)].map((_, index) => (
+                    <Input
+                      key={index}
+                      id={`image_${index}`}
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, index)}
+                    />
+                  ))}
+                </div>
+                {images.length > 0 && (
+                  <ul>
+                    {images.map((image, index) => (
+                      <li key={index}>{image.name}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
               <div className="grid gap-2">
                 {images.map((image, index) => (
                   <div key={index} className="flex items-center gap-4">
@@ -245,9 +236,7 @@ export default function CreateProduct() {
                     <Button
                       variant="destructive"
                       size="icon"
-                      onClick={() =>
-                        setImages(images.filter((_, i) => i !== index))
-                      }
+                      onClick={() => setImages(images.filter((_, i) => i !== index))}
                     >
                       Remove
                     </Button>
@@ -256,38 +245,6 @@ export default function CreateProduct() {
               </div>
             </div>
           </CardContent>
-        </Card>
-        <Card x-chunk="dashboard-07-chunk-3">
-          <CardHeader>
-            <CardTitle>Status</CardTitle>
-            <CardDescription>Selecione o status do produto</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Select onValueChange={(value) => setStatus(value)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Selecione o Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="draft">Rascunho</SelectItem>
-                <SelectItem value="published">Publicado</SelectItem>
-              </SelectContent>
-            </Select>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setName("");
-                setDescription("");
-                setPrice("");
-                setAmount("");
-                setImages([]);
-              }}
-            >
-              Descartar
-            </Button>
-            <Button type="submit">Salvar Produto</Button>
-          </CardFooter>
         </Card>
       </form>
     </div>
