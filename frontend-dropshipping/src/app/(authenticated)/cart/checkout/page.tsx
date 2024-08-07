@@ -163,64 +163,74 @@ const Checkout = () => {
 
   return (
     <div className="container mx-auto mt-20">
-      <h1 className="text-center">Dados do Cliente</h1>
+      <h1 className="text-center text-2xl">Dados de Endereço</h1>
       {isEditing ? (
-        <form onSubmit={handleSaveAddress} className="mt-40">
+        <form onSubmit={handleSaveAddress} className="mt-10">
+          <Input
+            placeholder="CEP"
+            className='mb-4 w-[100%] sm:w-[50%]'
+            value={address.zip}
+            onChange={(e) => setAddress({ ...address, zip: e.target.value })}
+            required
+          />
           <Input
             placeholder="Rua"
+            className='mb-4 w-[100%] sm:w-[50%]'
             value={address.street}
             onChange={(e) => setAddress({ ...address, street: e.target.value })}
             required
           />
           <Input
             placeholder="Número"
+            className='mb-4 w-[100%] sm:w-[50%]'
             value={address.houseNumber}
             onChange={(e) => setAddress({ ...address, houseNumber: e.target.value })}
             required
           />
           <Input
             placeholder="Complemento"
+            className='mb-4 w-[100%] sm:w-[50%]'
             value={address.complement}
             onChange={(e) => setAddress({ ...address, complement: e.target.value })}
           />
           <Input
             placeholder="Bairro"
+            className='mb-4 w-[100%] sm:w-[50%]'
             value={address.neighborhood}
             onChange={(e) => setAddress({ ...address, neighborhood: e.target.value })}
             required
           />
           <Input
             placeholder="Cidade"
+            className='mb-4 w-[100%] sm:w-[50%]'
             value={address.city}
             onChange={(e) => setAddress({ ...address, city: e.target.value })}
             required
           />
           <Input
             placeholder="Estado"
+            className='mb-4 w-[100%] sm:w-[50%]'
             value={address.state}
             onChange={(e) => setAddress({ ...address, state: e.target.value })}
             required
           />
-          <Input
-            placeholder="CEP"
-            value={address.zip}
-            onChange={(e) => setAddress({ ...address, zip: e.target.value })}
-            required
-          />
+
           <Button type="submit">Salvar Endereço</Button>
         </form>
       ) : (
-        <div>
-          <p>Rua: {address.street}, {address.houseNumber}</p>
-          <p>Complemento: {address.complement}</p>
-          <p>Bairro: {address.neighborhood}</p>
-          <p>Cidade: {address.city}</p>
-          <p>Estado: {address.state}</p>
-          <p>CEP: {address.zip}</p>
+        <div className='flex items-center justify-center mt-20'>
+          <div className='text-lg'>
+          <p className='mb-1'>CEP: {address.zip}</p>
+          <p className='mb-1'>Rua: {address.street}, Numero: {address.houseNumber}</p>
+          <p className='mb-1'>Complemento: {address.complement}</p>
+          <p className='mb-1'>Bairro: {address.neighborhood}</p>
+          <p className='mb-1'>Cidade: {address.city}</p>
+          <p className='mb-8'>Estado: {address.state}</p>
           <Button onClick={() => setIsEditing(true)}>Editar Endereço</Button>
+          </div>
         </div>
       )}
-      <form onSubmit={handleCheckout} className="mt-40">
+      <form onSubmit={handleCheckout} className="mt-40 flex justify-end">
         <Button type="submit" disabled={!address.street || !address.city || !address.state || !address.zip || !address.houseNumber || !address.neighborhood}>Continuar para Pagamento</Button>
       </form>
     </div>
