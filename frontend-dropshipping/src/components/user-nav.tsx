@@ -44,9 +44,11 @@ export default function UserNav() {
                                         Configurações  
                                     </DropdownMenuItem>
                                 </Link>
-                                <DropdownMenuItem>
-                                    Minhas compras
-                                </DropdownMenuItem>
+                                <Link href="/settings/my_purchases">
+                                    <DropdownMenuItem className="cursor-pointer">
+                                        Minhas Compras  
+                                    </DropdownMenuItem>
+                                </Link>
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={logout}>
