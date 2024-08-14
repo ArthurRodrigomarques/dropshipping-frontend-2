@@ -1,11 +1,12 @@
-'use client'; // Adicione esta linha no início do arquivo Orders.tsx
+// src/app/orders/page.tsx
+'use client';
 
-import axios from "axios";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
-import { Badge } from "./ui/badge";
-import { api } from "@/services/api";
+import axios from 'axios';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
+import { Badge } from './ui/badge';
+import { api } from '@/services/api';
 
 interface Address {
   city: string | null;
@@ -19,7 +20,7 @@ interface Address {
 interface Email {
   address: Address;
   email: string;
-  name: string;
+  name: string | null;  // Permite null
   phone: string | null;
   tax_exempt: string;
   tax_ids: string[];
@@ -34,13 +35,12 @@ interface Product {
 
 interface Order {
   id: string;
-  email: Email;
+  email: Email | null;  // Permite null
   metadata: {
     products: string;
   };
   total: number;
 }
-
 
 const fetchProductDetails = async (productId: string) => {
   try {
@@ -125,11 +125,11 @@ const Orders = () => {
           <TableRow key={order.id} className="bg-accent">
             <TableCell>
               <Link href={`/admin/session/${order.id}`} key={order.id}>
-                {order.email.name}
+                {order.email?.name || 'Nome não disponível'}
               </Link>
               <br />
               <div className="hidden text-sm text-muted-foreground md:inline">
-                {order.email.email}
+                {order.email?.email || 'Email não disponível'}
               </div>
             </TableCell>
             <TableCell className="hidden sm:table-cell">Venda</TableCell>
