@@ -28,10 +28,10 @@ export default function Footer() {
                     <h1 className="mb-3 font-bold">NOSSAS POLÍTICAS</h1>
 
                     <Link className="hover:text-black mb-3" href="/">Contato</Link>
-                    <Link className="hover:text-black mb-3" href="/">Quem somos</Link>
-                    <Link className="hover:text-black mb-3" href="/">Envios e Prazos</Link>
-                    <Link className="hover:text-black mb-3" href="/">Trocas e devoluções</Link>
-                    <Link className="hover:text-black mb-3" href="/">Politica de privacidade</Link>
+                    <Link className="hover:text-black mb-3" href="/policies/aboutUs">Quem somos</Link>
+                    <Link className="hover:text-black mb-3" href="/policies/shippingAndDelivery">Envios e Prazos</Link>
+                    {/* <Link className="hover:text-black mb-3" href="/">Trocas e devoluções</Link> */}
+                    <Link className="hover:text-black mb-3" href="/policies/privacypolicy">Politica de privacidade</Link>
                 </div>
                 <div className="sm:mb-5">
                     <h1 className="mb-5 font-bold">CENTRAL DE ATENDIMENTO</h1>

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useCart } from '../../../services/CartContext';
 import { useRouter } from 'next/navigation';
 import { GiConfirmed } from "react-icons/gi";
+
 const Success = () => {
   const { clearCart } = useCart();
   const router = useRouter();
@@ -20,10 +21,14 @@ const Success = () => {
 
   return (
     <div className="container mx-auto mt-20">
-      <GiConfirmed/>
-      <div>
-      <h1 className="text-center">Compra realizada com sucesso!</h1>
-      <p className="text-center">Seu carrinho foi limpo e você será redirecionado em breve.</p>
+      <div className="text-center text-primary">
+        <div className="flex flex-col items-center">
+          <GiConfirmed className="text-6xl mb-4" width={200} />
+          <div className=''>
+            <h1 className='font-bold text-2xl mb-10'>Compra efetuada com sucesso!</h1>
+            <p>Os dados da compra estão em "Minhas Compras"</p>
+          </div>
+        </div>
       </div>
     </div>
   );
