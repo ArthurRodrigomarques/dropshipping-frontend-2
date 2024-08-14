@@ -12,6 +12,15 @@ export default function UserNav() {
     const { user, logout } = useContext(AuthContext);
     const router = useRouter();
 
+    const getInitials = (name: any) => {
+        if (!name) return "";
+        const nameArray = name.split(" ");
+        const initials = nameArray.length > 1 
+            ? `${nameArray[0][0]}${nameArray[1][0]}`
+            : nameArray[0][0];
+        return initials.toUpperCase();
+    };
+
     return (
         <div className="flex mt-1">
             {user ? (
@@ -20,8 +29,7 @@ export default function UserNav() {
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                                 <Avatar className="h-8 w-8">
-                                    <AvatarImage src="https://github.com/ArthurRodrigomarques.png" alt="@shadcn" />
-                                    <AvatarFallback>SC</AvatarFallback>
+                                    <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                                 </Avatar>
                             </Button>
                         </DropdownMenuTrigger>
