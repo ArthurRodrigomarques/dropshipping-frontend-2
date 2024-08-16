@@ -29,6 +29,7 @@ export default function Address() {
   const { user, token } = useAuth();
   const [address, setAddress] = useState<Address | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isNewAddress, setIsNewAddress] = useState(false); // Nova variável de estado
 
   useEffect(() => {
     if (user && token) {
@@ -41,7 +42,23 @@ export default function Address() {
           });
           setAddress(response.data);
         } catch (error) {
-          console.error("Erro ao buscar endereço:", error);
+          if (axios.isAxiosError(error) && error.response?.status === 404) {
+            // Se o erro for 404, inicialize um novo endereço vazio para edição
+            setAddress({
+              street: '',
+              city: '',
+              state: '',
+              zip: '',
+              houseNumber: '',
+              complement: '',
+              neighborhood: '',
+              country: '',
+            });
+            setIsEditing(true); // Permite a edição de um novo endereço
+            setIsNewAddress(true); // Indica que é um novo endereço
+          } else {
+            console.error("Erro ao buscar endereço:", error);
+          }
         }
       };
 
@@ -54,19 +71,29 @@ export default function Address() {
     setAddress((prevAddress) => prevAddress ? { ...prevAddress, [name]: value } : null);
   };
 
-  const handleUpdateAddress = async () => {
+  const handleSaveAddress = async () => {
     if (user && token && address) {
       try {
-        await axios.put(`http://localhost:3333/addresses`, address, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        alert('Endereço atualizado com sucesso!');
+        if (isNewAddress) {
+          await axios.post(`http://localhost:3333/address`, address, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          alert('Endereço criado com sucesso!');
+        } else {
+          await axios.put(`http://localhost:3333/addresses`, { ...address, userId: user.id }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          alert('Endereço atualizado com sucesso!');
+        }
         setIsEditing(false);
+        setIsNewAddress(false); // Defina como false após salvar
       } catch (error) {
-        console.error("Erro ao atualizar endereço:", error);
-        alert('Erro ao atualizar endereço.');
+        console.error("Erro ao salvar endereço:", error);
+        alert('Erro ao salvar endereço.');
       }
     }
   };
@@ -81,7 +108,7 @@ export default function Address() {
           </CardHeader>
           <CardContent>
             <form>
-            <div className="flex mb-5">
+              <div className="flex mb-5">
                 <p className="mt-[6px] mr-8">CEP:</p>
                 <Input
                   name="zip"
@@ -165,7 +192,7 @@ export default function Address() {
           </CardContent>
           <CardFooter className="border-t px-6 py-4">
             {isEditing ? (
-              <Button onClick={handleUpdateAddress}>Salvar</Button>
+              <Button onClick={handleSaveAddress}>Salvar</Button>
             ) : (
               <Button onClick={() => setIsEditing(true)}>Mudar endereço</Button>
             )}
