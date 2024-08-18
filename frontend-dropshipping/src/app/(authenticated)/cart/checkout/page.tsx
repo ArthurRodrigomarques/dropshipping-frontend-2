@@ -18,6 +18,7 @@ type Address = {
   houseNumber: string;
   complement: string;
   neighborhood: string;
+  country: string;
 };
 
 const Checkout = () => {
@@ -33,9 +34,11 @@ const Checkout = () => {
     houseNumber: '',
     complement: '',
     neighborhood: '',
+    country: '',
   });
   const [userSellerId, setUserSellerId] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isNewAddress, setIsNewAddress] = useState(true); // Inicialmente assumimos que é um novo endereço
 
   const seller = process.env.NEXT_PUBLIC_SELLER_ID;
 
@@ -67,6 +70,7 @@ const Checkout = () => {
           });
           if (response.data) {
             setAddress(response.data);
+            setIsNewAddress(false); // Se houver um endereço, é uma atualização
           } else {
             setIsEditing(true); // Se não houver endereço, permitir a edição
           }
@@ -134,27 +138,35 @@ const Checkout = () => {
     }
 
     try {
-      let response;
-      if (address.id) {
-        // Fazer um PUT para atualizar o endereço existente
-        response = await api.put(`/addresses`, address, {
+      if (isNewAddress) {
+        // Faça um POST para criar um novo endereço
+        const response = await api.post(`http://localhost:3333/address`, address, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-      } else {
-        // Fazer um POST para criar um novo endereço
-        response = await api.post(`/address`, address, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-      }
 
-      if (response.status === 200 || response.status === 201) {
-        setIsEditing(false); // Desabilitar edição após salvar o endereço
+        if (response.status === 201) {
+          alert('Endereço criado com sucesso!');
+          setIsEditing(false); // Desabilitar edição após salvar o endereço
+          setIsNewAddress(false); // Definir como não sendo novo após salvar
+        } else {
+          console.error('Erro ao salvar endereço');
+        }
       } else {
-        console.error('Erro ao salvar endereço');
+        // Faça um PUT para atualizar o endereço existente
+        const response = await api.put(`http://localhost:3333/addresses`, { ...address, userId: user.id }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.status === 200) {
+          alert('Endereço atualizado com sucesso!');
+          setIsEditing(false); // Desabilitar edição após salvar o endereço
+        } else {
+          console.error('Erro ao salvar endereço');
+        }
       }
     } catch (error) {
       console.error('Erro ao salvar endereço:', error);
@@ -214,19 +226,27 @@ const Checkout = () => {
             onChange={(e) => setAddress({ ...address, state: e.target.value })}
             required
           />
+          <Input
+            placeholder="País"
+            className='mb-4 w-[100%] sm:w-[50%]'
+            value={address.country}
+            onChange={(e) => setAddress({ ...address, country: e.target.value })}
+            required
+          />
 
           <Button type="submit">Salvar Endereço</Button>
         </form>
       ) : (
         <div className='flex items-center justify-center mt-20'>
           <div className='text-lg'>
-          <p className='mb-1'>CEP: {address.zip}</p>
-          <p className='mb-1'>Rua: {address.street}, Numero: {address.houseNumber}</p>
-          <p className='mb-1'>Complemento: {address.complement}</p>
-          <p className='mb-1'>Bairro: {address.neighborhood}</p>
-          <p className='mb-1'>Cidade: {address.city}</p>
-          <p className='mb-8'>Estado: {address.state}</p>
-          <Button onClick={() => setIsEditing(true)}>Editar Endereço</Button>
+            <p className='mb-1'>CEP: {address.zip}</p>
+            <p className='mb-1'>Rua: {address.street}, Número: {address.houseNumber}</p>
+            <p className='mb-1'>Complemento: {address.complement}</p>
+            <p className='mb-1'>Bairro: {address.neighborhood}</p>
+            <p className='mb-1'>Cidade: {address.city}</p>
+            <p className='mb-8'>Estado: {address.state}</p>
+            <p className='mb-8'>País: {address.country}</p>
+            <Button onClick={() => setIsEditing(true)}>Editar Endereço</Button>
           </div>
         </div>
       )}
